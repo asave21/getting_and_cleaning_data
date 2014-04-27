@@ -29,6 +29,5 @@ final_data_sd[1:2,]<- NA
 #Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 library(data.table)
 dt<- data.table(final_data)
-meanData<- dt[, lapply(.SD, mean), by=c("Subject", "Activity_Name")]
-meanData<- meanData[order(meanData$Subject),]
+final_mean_data<- dt[, lapply(.SD, mean), by=c("Subject", "Activity_Name")]
 rm(dt)
