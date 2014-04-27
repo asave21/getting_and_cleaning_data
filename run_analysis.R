@@ -8,10 +8,8 @@ colnames(subj)<- c("Subject")
 #Uses descriptive activity names to name the activities in the data set
 act_labels <- read.table("~/UCI_HAR_Dataset/activity_labels.txt", header = FALSE)
 act<- merge(act,act_labels)
-col <- c("Activity_ID", "Activity_Name")
-colnames(act)<-col
-rm(col)
-act_final <- data.frame(act$Activity_Name)
+act_final <- data.frame(act$V2)
+colnames(act_final)<-c("Activity_Name")
 rm(act)
 rm(act_labels)
 #Appropriately labels the data set with descriptive activity names. 
@@ -22,8 +20,15 @@ rm(val_labels)
 final_data <- cbind(subj,act_final,val)
 rm(subj)
 rm(act_final)
-#Extracts only the measurements on the mean and standard deviation for each measurement. 
-final_data_mean<-sapply(val,mean,na.rm=TRUE)
-final_data_sd<-sapply(val_data,sd,na.rm=TRUE)
 rm(val)
+#Extracts only the measurements on the mean and standard deviation for each measurement. 
+final_data_mean<-data.frame(sapply(final_data,mean,na.rm=TRUE))
+final_data_sd<-data.frame(sapply(final_data,sd,na.rm=TRUE))
+final_data_mean[1:2,]<- NA
+final_data_sd[1:2,]<- NA
 #Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
+library(data.table)
+dt<- data.table(final_data)
+meanData<- dt[, lapply(.SD, mean), by=c("Subject", "Activity_Name")]
+meanData<- meanData[order(meanData$Subject),]
+rm(dt)
