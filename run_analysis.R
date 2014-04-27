@@ -4,7 +4,7 @@ subj <- rbind(read.table("~/UCI_HAR_Dataset/test/subject_test.txt",header = FALS
 val <- rbind(read.table("~/UCI_HAR_Dataset/test/X_test.txt",header = FALSE), read.table("~/UCI_HAR_Dataset/train/X_train.txt",header = FALSE))
 act <- rbind(read.table("~/UCI_HAR_Dataset/test/y_test.txt",header = FALSE), read.table("~/UCI_HAR_Dataset/train/y_train.txt",header = FALSE))
 colnames(subj)<- c("Subject")
-#final_data <- cbind(subj,act,val)
+
 #Uses descriptive activity names to name the activities in the data set
 act_labels <- read.table("~/UCI_HAR_Dataset/activity_labels.txt", header = FALSE)
 act<- merge(act,act_labels)
