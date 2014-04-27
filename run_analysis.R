@@ -19,6 +19,7 @@ rm(val_labels)
 #Merges the training and the test sets to create one data set Final Merge
 final_data <- cbind(subj,act_final,val)
 final_data <- final_data[order =(final_data$Subject),]
+write.table(final_data , file = "tidydata.txt")
 rm(subj)
 rm(act_final)
 rm(val)
@@ -33,4 +34,3 @@ dt<- data.table(final_data)
 final_mean_data<- dt[, lapply(.SD, mean), by=c("Subject", "Activity_Name")]
 rm(dt)
 
-write.table(final_data , file = "tidydata.txt")
